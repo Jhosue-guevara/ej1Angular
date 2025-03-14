@@ -1,59 +1,24 @@
-# Ej1Angular
+# Ej1Angular - Consumo de la API de Pokémon
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.3.
+Este proyecto fue creado con el objetivo de consumir la API pública de Pokémon y mostrar la información de los Pokémon en una aplicación Angular. Utilizando la API de [PokeAPI](https://pokeapi.co/), se obtiene una lista de los primeros 100 Pokémon y se muestran sus detalles, como el nombre, ID, tipos y su imagen.
 
-## Development server
+## Características del Proyecto
 
-To start a local development server, run:
+- **Búsqueda de Pokémon**: Se puede buscar Pokémon por nombre.
+- **Listar Pokémon**: Muestra una lista de Pokémon con sus detalles (nombre, ID, tipos e imagen).
+- **Modal de Pokémon**: Al hacer clic en un Pokémon, se muestra una ventana modal con información adicional sobre el Pokémon.
+- **Consumo de API**: El proyecto consume la API pública de Pokémon para obtener los datos.
 
-```bash
-ng serve
-```
+## Tecnologías Utilizadas
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Angular 19**: El framework principal utilizado para desarrollar la aplicación.
+- **Bootstrap**: Utilizado para los estilos y diseño responsivo.
+- **PokeAPI**: API pública que proporciona los datos de los Pokémon.
 
-## Code scaffolding
+## Instrucciones de Instalación
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. Clona este repositorio en tu máquina local.
+2. Abre una terminal en la raíz del proyecto y ejecuta:
 
 ```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+npm install
