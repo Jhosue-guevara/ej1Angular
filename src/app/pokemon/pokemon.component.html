@@ -17,15 +17,28 @@
       {{ errorMessage }}
     </div>
   
-    <!-- Tarjeta de Pokémon -->
-    <div *ngIf="pokemon" class="card" style="width: 18rem;">
-      <img [src]="pokemon.sprites.front_default" class="card-img-top" alt="{{ pokemon.name }}" />
-      <div class="card-body">
-        <h5 class="card-title">{{ pokemon.name | titlecase }}</h5>
-        <p class="card-text">ID: {{ pokemon.id }}</p>
-        <p class="card-text">Tipo(s): 
-          <span *ngFor="let type of pokemon.types">{{ type.type.name | titlecase }} </span>
-        </p>
+    <!-- Mensaje cuando no se encuentren Pokémon -->
+    <div *ngIf="filteredPokemons.length === 0">
+      <p>No se encontraron Pokémon.</p>
+    </div>
+  
+    <!-- Tarjetas de Pokémon organizadas en filas -->
+    <div class="row">
+      <div *ngFor="let pokemon of filteredPokemons" class="col-12 col-md-4 col-lg-3 mb-4">
+        <div class="card">
+          <!-- Imagen del Pokémon -->
+          <img *ngIf="pokemon.sprites" [src]="pokemon.sprites.front_default" class="card-img-top" alt="{{ pokemon.name }}" />
+          
+          <!-- Contenido de la tarjeta -->
+          <div class="card-body">
+            <h5 class="card-title text-center">{{ pokemon.name | titlecase }}</h5>
+            <p class="card-text text-center">ID: {{ pokemon.id }}</p>
+            <p class="card-text text-center">
+              Tipos: 
+              <span *ngFor="let type of pokemon.types">{{ type.type.name | titlecase }} </span>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>

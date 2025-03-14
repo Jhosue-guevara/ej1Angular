@@ -1,35 +1,58 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common'; // Importa el CommonModule
-import { FormsModule } from '@angular/forms'; // Importa el FormsModule
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-pokemon',
   standalone: true,
-  imports: [CommonModule, FormsModule],  // Asegúrate de agregar estos módulos
+  imports: [CommonModule, FormsModule],
   templateUrl: './pokemon.component.html',
   styleUrls: ['./pokemon.component.css']
 })
-export class PokemonComponent {
+export class PokemonComponent implements OnInit {
   name: string = '';
-  pokemon: any;
+  allPokemons: any[] = [];
+  filteredPokemons: any[] = [];
   errorMessage: string = '';
 
   constructor(private http: HttpClient) {}
 
-  searchPokemon() {
-    if (this.name.trim() !== '') {
-      this.http.get(`https://pokeapi.co/api/v2/pokemon/${this.name.toLowerCase()}`)
-        .subscribe(
-          (data) => {
-            this.pokemon = data;
-            this.errorMessage = '';
-          },
-          (error) => {
-            this.pokemon = null;
-            this.errorMessage = 'Pokémon no encontrado. Intenta de nuevo.';
-          }
+  ngOnInit() {
+    this.loadPokemons();
+  }
+
+  loadPokemons() {
+    this.http.get<any>('https://pokeapi.co/api/v2/pokemon?limit=100&offset=0').subscribe(
+      (response) => {
+        // Obtén los detalles de cada Pokémon
+        const pokemonRequests = response.results.map((pokemon: any) =>
+          this.http.get<any>(pokemon.url).toPromise()
         );
+
+        Promise.all(pokemonRequests).then((pokemonsDetails: any[]) => {
+          // Ahora tienes los detalles completos de cada Pokémon
+          this.allPokemons = pokemonsDetails;
+          this.filteredPokemons = this.allPokemons;
+        }).catch(error => {
+          this.errorMessage = 'Error al cargar los detalles de los Pokémon.';
+          console.error(error);
+        });
+      },
+      (error) => {
+        this.errorMessage = 'Error al cargar los Pokémon.';
+        console.error(error);
+      }
+    );
+  }
+
+  searchPokemon() {
+    if (this.name) {
+      this.filteredPokemons = this.allPokemons.filter(pokemon =>
+        pokemon.name.toLowerCase().includes(this.name.toLowerCase())
+      );
+    } else {
+      this.filteredPokemons = this.allPokemons;
     }
   }
 }
