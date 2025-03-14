@@ -1,0 +1,32 @@
+<div class="container mt-5">
+    <!-- Buscador de Pokémon -->
+    <div class="mb-3">
+      <label for="pokemonSearch" class="form-label">Buscar Pokémon</label>
+      <input
+        type="text"
+        id="pokemonSearch"
+        class="form-control"
+        [(ngModel)]="name"
+        (input)="searchPokemon()"
+        placeholder="Introduce el nombre del Pokémon"
+      />
+    </div>
+  
+    <!-- Mensaje de error -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+  
+    <!-- Tarjeta de Pokémon -->
+    <div *ngIf="pokemon" class="card" style="width: 18rem;">
+      <img [src]="pokemon.sprites.front_default" class="card-img-top" alt="{{ pokemon.name }}" />
+      <div class="card-body">
+        <h5 class="card-title">{{ pokemon.name | titlecase }}</h5>
+        <p class="card-text">ID: {{ pokemon.id }}</p>
+        <p class="card-text">Tipo(s): 
+          <span *ngFor="let type of pokemon.types">{{ type.type.name | titlecase }} </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  
